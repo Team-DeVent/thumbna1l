@@ -31,3 +31,8 @@ body.swal2-height-auto {
 .swal2-container.swal2-center>.swal2-popup {
     border-radius: 10px;
 }
+
+.cls-3 {
+    font-family: 'Noto Sans KR', sans-serif !important;
+    font-size: black;
+}

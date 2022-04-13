@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+    {{> head}}
+  <body>
+
+    <dds-navbar nav-title="Thumbna1l" nav-fixed="top">
+        <dds-navbar-item item-link="https://devent.kr">devent.kr</dds-navbar-item>
+    </dds-navbar>
+
+
+    <dds-header 
+        header-title="블로그 썸네일을 손쉽게"
+        header-sub-title="Thumbna1l은 썸네일을 간편하게 만들어주는 도구입니다.">
+        
+    </dds-header>
+
+
+
+
+    
+    <section class="py-5" id="features">
+        <div class="container-fluid px-4 my-5">
+            <div class="row gx-5">
+
+                <div class="col-lg-6">
+                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>
+                    <h2 class="h4 fw-bolder">수정 </h2>
+
+<svg id="레이어_1" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080"><defs><style>.cls-1{opacity:0.65;}.cls-2{fill:#d1d6ed;}.cls-3{font-size:138.35px;fill:#fff;font-family:'Noto Sans KR', sans-serif; font-weight:900;}.cls-4{font-size:45.85px;font-family:'Noto Sans KR', sans-serif;font-weight:700;}.cls-4,.cls-5{fill:#e9edff;}</style></defs><title>A12대지 12</title><image id="rem_image" width="1280" height="768" transform="translate(-9 9) scale(1.51)" xlink:href="../../../../../../다운로드 (3).png"/><rect class="cls-1" width="1920" height="1080"/><path class="cls-2" d="M0,0V1080H1920V0ZM1881,1047H41V33H1881Z"/><text class="cls-3" transform="translate(113 612.75)" ><tspan id="rem_text_1">Node JS</tspan><tspan id="rem_text_2" x="0" y="166.02">템플릿을</tspan><tspan id="rem_text_3" x="0" y="332.04">만들어보며</tspan></text><text class="cls-4" transform="translate(163.38 116.04)" id="rem_type_1">프로젝트 회고</text><rect class="cls-5" x="118.6" y="82.29" width="22.13" height="5.74" rx="2.87" ry="2.87"/><rect class="cls-5" x="118.6" y="95.42" width="29.97" height="5.74" rx="2.87" ry="2.87"/><rect class="cls-5" x="118.6" y="108.55" width="29.97" height="5.74" rx="2.87" ry="2.87"/></svg>
+
+                    <div class="mb-3">
+                        <b>이미지 url</b>
+                        <input id="image_1" type="text" class="form-control" placeholder="URL/">
+                    </div>
+
+
+                    <div class="mb-3">
+                        <b>분류</b>
+                        <input id="type_1" type="text" class="form-control" placeholder="회고/">
+                    </div>
+
+                    <b>타이틀 텍스트</b>
+                    <div class="mb-3">
+                        <input id="input_1" type="text" class="form-control" placeholder="name@example.com">
+                    </div>
+
+                    <div class="mb-3">
+                            <input id="input_2" type="text" class="form-control" placeholder="name@example.com">
+                    </div>        
+
+                    <div class="mb-3">
+                        <input id="input_3" type="text" class="form-control" placeholder="name@example.com">
+                    </div>
+
+                    <button class="btn btn-blue" onclick="change()">수정</button>
+
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>
+                    <h2 class="h4 fw-bolder">결과</h2>
+                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                    <a class="text-decoration-none" href="#!">
+                        Call to action
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    
+                                
+    <dds-footer
+        project-title="DeVent Thumbna1l"
+        sub-title="데벤트"
+        company-name="사업자등록번호 : 429-52-00535 | 대표: 허형준"
+        project-email="문의: info@devent.kr">
+    </dds-footer>
+    
+    {{> footer}}
+
+    <script>
+
+
+        // rem: 회고
+
+        function edit(
+            index, 
+            image_link,
+            type,
+            {text_1, text_2, text_3}) {
+
+                console.log(index, `#${index}_image`, text_1, document.querySelector(`#${index}_text_1`))
+                document.querySelector(`#${index}_image`).setAttribute("xlink:href", image_link)
+                document.querySelector(`#${index}_type_1`).innerHTML = type
+
+                document.querySelector(`#${index}_text_1`).innerHTML = text_1
+                console.log(text_1, text_2, text_3)
+
+        }
+
+        function change() {
+            let image_1 = document.querySelector("#image_1").value
+            let type_1 = document.querySelector("#type_1").value
+
+            let text_1 = document.querySelector("#input_1").value
+            let text_2 = document.querySelector("#input_2").value
+            let text_3 = document.querySelector("#input_3").value
+
+            edit('rem', image_1, type_1, {text_1, text_2, text_3})
+        }
+        
+
+        async function getFeeeeeeeeeeed() {
+            let data = await getFeedRange(0)
+
+            document.querySelector('#logs').innerHTML = JSON.stringify(data)
+        }
+
+        async function appendFeeeeeeeeeeed() {
+            await insertFeed(document.querySelector("#exampleFormControlTextarea1").value)
+
+            setTimeout(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: '피드 작성 완료',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            }, 300);
+        }
+    </script>
+
+  </body>
+</html>

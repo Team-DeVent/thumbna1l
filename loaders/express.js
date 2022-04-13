@@ -4,8 +4,7 @@ import cookieParser from 'cookie-parser';
 import { engine } from 'express-handlebars';
 
 
-import apiRouter from '../backend/api.js';
-import mainRouter from '../frontend/routes/main.js';
+import mainRouter from '../routes/main.js';
 
 export async function init (app) {
     app.engine("hbs",
@@ -16,15 +15,14 @@ export async function init (app) {
     );
     app.set('trust proxy', 1);
     app.set("view engine", "hbs");    
-    app.set('views','./frontend/views');
+    app.set('views','./views');
     app.disable('x-powered-by');
     
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended : true}));
     app.use(cookieParser());
 
-    app.use('/', express.static('frontend/public'));
-    app.use('/api', apiRouter);
+    app.use('/', express.static('src'));
     app.use('/', mainRouter);
     return app;
 }
