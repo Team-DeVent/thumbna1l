@@ -33,6 +33,10 @@
                         <input id="image_1" type="text" class="form-control" oninput="change()" placeholder="URL/" value="https://cdn.pixabay.com/photo/2022/01/13/14/53/bird-6935465_1280.jpg">
                     </div>
 
+                    <div class="mb-3">
+                        <b>이미지 조정</b>
+                        <input id="transform_1" type="text" class="form-control" oninput="change()" placeholder="translate(-81 9) scale(1.81)" value="translate(-81 9) scale(1.81)">
+                    </div>
 
                     <div class="mb-3">
                         <b>분류</b>
@@ -89,10 +93,14 @@
             index, 
             image_link,
             type,
+            transform,
             {text_1, text_2, text_3}) {
 
                 console.log(index, `#${index}_image`, text_1, document.querySelector(`#${index}_text_1`))
                 document.querySelector(`#${index}_image`).setAttribute("xlink:href", image_link)
+                document.querySelector(`#${index}_image`).setAttribute("transform", transform)
+
+                
                 document.querySelector(`#${index}_type_1`).innerHTML = type
 
                 document.querySelector(`#${index}_text_1`).innerHTML = text_1
@@ -106,12 +114,13 @@
         function change() {
             let image_1 = document.querySelector("#image_1").value
             let type_1 = document.querySelector("#type_1").value
+            let transform_1 = document.querySelector("#transform_1").value
 
             let text_1 = document.querySelector("#input_1").value
             let text_2 = document.querySelector("#input_2").value
             let text_3 = document.querySelector("#input_3").value
 
-            edit('rem', image_1, type_1, {text_1, text_2, text_3})
+            edit('rem', image_1, type_1, transform_1, {text_1, text_2, text_3})
         }
 
         function convert() {
