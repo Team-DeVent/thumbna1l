@@ -36,3 +36,9 @@ body.swal2-height-auto {
     font-family: 'Noto Sans KR', sans-serif !important;
     font-size: black;
 }
+
+#rem_image {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
