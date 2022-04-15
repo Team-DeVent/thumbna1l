@@ -26,9 +26,12 @@
                     <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>
                     <h2 class="h4 fw-bolder">수정 </h2>
 
-<svg id="layer" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1080"><defs><style>.cls-1{opacity:0.65;}.cls-2{fill:#d1d6ed;}.cls-3{font-size:138.35px;fill:#fff;font-family:'Noto Sans KR', sans-serif; font-weight:900;}.cls-4{font-size:45.85px;font-family:'Noto Sans KR', sans-serif;font-weight:700;}.cls-4,.cls-5{fill:#e9edff;}</style></defs><title>A12대지 12</title><image id="rem_image" width="1280" height="768" transform="translate(-81 9) scale(1.81)" xlink:href="https://cdn.pixabay.com/photo/2022/01/13/14/53/bird-6935465_1280.jpg"/><rect class="cls-1" width="1920" height="1080"/><path class="cls-2" d="M0,0V1080H1920V0ZM1881,1047H41V33H1881Z"/><text class="cls-3" transform="translate(113 612.75)" ><tspan id="rem_text_1">Node JS</tspan><tspan id="rem_text_2" x="0" y="166.02">템플릿을</tspan><tspan id="rem_text_3" x="0" y="332.04">만들어보며</tspan></text><text class="cls-4" transform="translate(163.38 116.04)" id="rem_type_1">프로젝트 회고</text><rect class="cls-5" x="118.6" y="82.29" width="22.13" height="5.74" rx="2.87" ry="2.87"/><rect class="cls-5" x="118.6" y="95.42" width="29.97" height="5.74" rx="2.87" ry="2.87"/><rect class="cls-5" x="118.6" y="108.55" width="29.97" height="5.74" rx="2.87" ry="2.87"/></svg>
+                    <div id="body_svg">
 
-                    <div class="mb-3">
+                    </div>
+
+
+                    <div class="mb-3 mt-3">
                         <b>이미지 url</b>
                         <input id="image_1" type="text" class="form-control" oninput="change()" placeholder="URL/" value="https://cdn.pixabay.com/photo/2022/01/13/14/53/bird-6935465_1280.jpg">
                     </div>
@@ -41,7 +44,6 @@
                     <div class="mb-3">
                         <b>분류</b>
                         <input id="type_1" type="text" class="form-control"  oninput="change()" placeholder="회고/" value="프로젝트 회고">
-                        <p>프로젝트 회고 | 짧은 기록 | 연간 회고</p>
                     </div>
 
                     <b>타이틀 텍스트</b>
@@ -63,9 +65,34 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>
-                    <h2 class="h4 fw-bolder">결과</h2>
+                    <h2 class="h4 fw-bolder">컨트롤</h2>
                     <img id="preview" src="" alt="">
-                    <button class="btn btn-blue" onclick="convert()">이미지 다운로드</button>
+                    <select id="select_type" class="form-select form-control mb-3" aria-label="Default select example" onchange="addSvg()">
+                        <option value="rem">회고</option>
+                        <option value="2">생각</option>
+                        <option value="tech">기술</option>
+                    </select>
+
+                    <h2 class="h4 fw-bolder mt-3">분류 카테고리</h2>
+
+                    <div class="mb-3">
+                        <b>회고</b>
+                        <p>프로젝트 회고 | 짧은 기록 | 연간 회고</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <b>생각</b>
+                        <p>스토리 | 프로젝트 | 프리스타일 | 짧은 글 | 시리즈</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <b>기술</b>
+                        <p>Python | JS | NodeJS | Docker | 에러와의 전쟁 | CTF | 정보공유 | 기타</p>
+                    </div>
+
+                    <h2 class="h4 fw-bolder mt-3">설정</h2>
+
+                    <button class="btn btn-blue" onclick="convert()"><i class="fas fa-download"></i> 이미지 다운로드</button>
 
                 </div>
             </div>
@@ -86,6 +113,7 @@
 
     <script>
 
+        loadSvg('rem')
 
         // rem: 회고
 
@@ -127,6 +155,23 @@
             saveSvgAsPng(document.getElementById("layer"), "diagram.png");
 
 
+        }
+
+        function addSvg() {
+        
+            let selected = document.getElementById("select_type")
+            let item = selected.options[selected.selectedIndex].value
+
+            loadSvg(item)
+        }
+
+        function loadSvg(index) {
+            fetch(`/svg/${index}.svg`)
+                .then((response) => response.text())
+                .then((data) => {
+                console.log(data)
+                document.querySelector("#body_svg").innerHTML = data
+            });
         }
         
 
