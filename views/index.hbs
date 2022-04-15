@@ -15,9 +15,6 @@
     </dds-header>
 
 
-
-
-    
     <section class="py-5" id="features">
         <div class="container-fluid px-4 my-5">
             <div class="row gx-5">
@@ -33,30 +30,30 @@
 
                     <div class="mb-3 mt-3">
                         <b>이미지 url</b>
-                        <input id="image_1" type="text" class="form-control" oninput="change()" placeholder="URL/" value="https://cdn.pixabay.com/photo/2022/01/13/14/53/bird-6935465_1280.jpg">
+                        <input id="image_1" type="text" class="form-control" oninput="thumb.svg.change()" placeholder="URL/" value="https://cdn.pixabay.com/photo/2022/01/13/14/53/bird-6935465_1280.jpg">
                     </div>
 
                     <div class="mb-3">
                         <b>이미지 조정</b>
-                        <input id="transform_1" type="text" class="form-control" oninput="change()" placeholder="translate(-81 9) scale(1.81)" value="translate(-81 9) scale(1.81)">
+                        <input id="transform_1" type="text" class="form-control" oninput="thumb.svg.change()" placeholder="translate(-81 9) scale(1.81)" value="translate(-81 9) scale(1.81)">
                     </div>
 
                     <div class="mb-3">
                         <b>분류</b>
-                        <input id="type_1" type="text" class="form-control"  oninput="change()" placeholder="회고/" value="프로젝트 회고">
+                        <input id="type_1" type="text" class="form-control"  oninput="thumb.svg.change()" placeholder="회고/" value="프로젝트 회고">
                     </div>
 
                     <b>타이틀 텍스트</b>
                     <div class="mb-3">
-                        <input id="input_1" type="text" class="form-control" onchange="change()" oninput="change()" placeholder="첫 문장">
+                        <input id="input_1" type="text" class="form-control" onchange="thumb.svg.change()" oninput="thumb.svg.change()" placeholder="첫 문장">
                     </div>
 
                     <div class="mb-3">
-                        <input id="input_2" type="text" class="form-control" onchange="change()" oninput="change()" placeholder="name@example.com">
+                        <input id="input_2" type="text" class="form-control" onchange="thumb.svg.change()" oninput="thumb.svg.change()" placeholder="다음 문장">
                     </div>        
 
                     <div class="mb-3">
-                        <input id="input_3" type="text" class="form-control" onchange="change()" oninput="change()" placeholder="name@example.com">
+                        <input id="input_3" type="text" class="form-control" onchange="thumb.svg.change()" oninput="thumb.svg.change()" placeholder="마지막 문장">
                     </div>
 
 
@@ -67,7 +64,7 @@
                     <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>
                     <h2 class="h4 fw-bolder">컨트롤</h2>
                     <img id="preview" src="" alt="">
-                    <select id="select_type" class="form-select form-control mb-3" aria-label="Default select example" onchange="addSvg()">
+                    <select id="select_type" class="form-select form-control mb-3" aria-label="Default select example" onchange="thumb.svg.append()">
                         <option value="rem">회고</option>
                         <option value="2">생각</option>
                         <option value="tech">기술</option>
@@ -92,7 +89,7 @@
 
                     <h2 class="h4 fw-bolder mt-3">설정</h2>
 
-                    <button class="btn btn-blue" onclick="convert()"><i class="fas fa-download"></i> 이미지 다운로드</button>
+                    <button class="btn btn-blue" onclick="thumb.image.download()"><i class="fas fa-download"></i> 이미지 다운로드</button>
 
                 </div>
             </div>
@@ -113,86 +110,9 @@
 
     <script>
 
-        loadSvg('rem')
-
-        // rem: 회고
-
-        function edit(
-            index, 
-            image_link,
-            type,
-            transform,
-            {text_1, text_2, text_3}) {
-
-                console.log(index, `#${index}_image`, text_1, document.querySelector(`#${index}_text_1`))
-                document.querySelector(`#${index}_image`).setAttribute("xlink:href", image_link)
-                document.querySelector(`#${index}_image`).setAttribute("transform", transform)
-
-                
-                document.querySelector(`#${index}_type_1`).innerHTML = type
-
-                document.querySelector(`#${index}_text_1`).innerHTML = text_1
-                document.querySelector(`#${index}_text_2`).innerHTML = text_2
-                document.querySelector(`#${index}_text_3`).innerHTML = text_3
-
-                console.log(text_1, text_2, text_3)
-
-        }
-
-        function change() {
-            let image_1 = document.querySelector("#image_1").value
-            let type_1 = document.querySelector("#type_1").value
-            let transform_1 = document.querySelector("#transform_1").value
-
-            let text_1 = document.querySelector("#input_1").value
-            let text_2 = document.querySelector("#input_2").value
-            let text_3 = document.querySelector("#input_3").value
-
-            edit('rem', image_1, type_1, transform_1, {text_1, text_2, text_3})
-        }
-
-        function convert() {
-            saveSvgAsPng(document.getElementById("layer"), "diagram.png");
+        thumb.svg.load('rem')
 
 
-        }
-
-        function addSvg() {
-        
-            let selected = document.getElementById("select_type")
-            let item = selected.options[selected.selectedIndex].value
-
-            loadSvg(item)
-        }
-
-        function loadSvg(index) {
-            fetch(`/svg/${index}.svg`)
-                .then((response) => response.text())
-                .then((data) => {
-                console.log(data)
-                document.querySelector("#body_svg").innerHTML = data
-            });
-        }
-        
-
-        async function getFeeeeeeeeeeed() {
-            let data = await getFeedRange(0)
-
-            document.querySelector('#logs').innerHTML = JSON.stringify(data)
-        }
-
-        async function appendFeeeeeeeeeeed() {
-            await insertFeed(document.querySelector("#exampleFormControlTextarea1").value)
-
-            setTimeout(() => {
-                Swal.fire({
-                    icon: 'success',
-                    title: '피드 작성 완료',
-                    showConfirmButton: false,
-                    timer: 1000
-                })
-            }, 300);
-        }
     </script>
 
   </body>
