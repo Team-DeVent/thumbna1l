@@ -36,3 +36,22 @@ body.swal2-height-auto {
     font-family: 'Noto Sans KR', sans-serif !important;
     font-size: black;
 }
+
+@font-face {
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 900;
+    src: url("/fonts/NotoSansKR-Black.otf") format("opentype");
+}
+@font-face {
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 700;
+    src: url("/fonts/NotoSansKR-Bold.otf") format("opentype");
+}
+@font-face {
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    font-weight: 500;
+    src: url("/fonts/NotoSansKR-Medium.otf") format("opentype");
+}
